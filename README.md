@@ -20,7 +20,7 @@ BM Macro is an **advanced gameplay enhancement tool** for the **Blade Master** c
 ## ⚙️ Installation & Usage
 
 1. **Download & Extract:**  
-   Download the executable or extract it to your desired folder.
+   [Download](https://github.com/hamulyn/bmmacro/releases/latest) the executable or extract it to your desired folder.
 2. **Configure `config.ini`:**  
    Automatically generated with editable settings.
 3. **Run `BM_Macro.exe`:**  
