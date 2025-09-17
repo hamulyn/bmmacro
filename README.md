@@ -27,7 +27,8 @@ BM Macro is an **advanced gameplay enhancement tool** for the **Blade Master** c
    Login or register to access main script.
 4. **Adjust Settings:**  
    Use the GUI to configure hotkeys, timings, and operation modes.
-
+5. **[Virus Total].(https://www.virustotal.com/gui/file/c2ea49c26a4456a0b8d205033a6aea001674e8e9764eb59a1b887513a98338ad/detection)**
+   False Positives, BM_Macro generate .ini files to save/share configs (Typical malware behavior).
 ---
 
 ## 📖 Full User Manual
