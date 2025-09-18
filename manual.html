@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BM Macro - User Manual</title>
+  <style>
+      :root {
+          --bg-primary: #0d1117;
+          --bg-secondary: #161b22;
+          --bg-tertiary: #21262d;
+          --bg-hover: #30363d;
+          --border-color: #30363d;
+          --text-primary: #c9d1d9;
+          --text-secondary: #8b949e;
+          --accent-primary: #58a6ff;
+          --accent-success: #3fb950;
+          --accent-danger: #f85149;
+          --code-bg: #2a2a3e;
+          --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+          background: var(--bg-primary);
+          color: var(--text-primary);
+          margin: 0;
+          display: flex;
+          line-height: 1.6;
+      }
+
+      /* Sidebar */
+      .sidebar {
+          width: 260px;
+          background: var(--bg-secondary);
+          border-right: 1px solid var(--border-color);
+          height: 100vh;
+          position: fixed;
+          top: 0;
+          left: 0;
+          padding: 2rem 1rem;
+          overflow-y: auto;
+          box-shadow: 2px 0 15px rgba(0,0,0,0.2);
+      }
+
+      .sidebar h2 {
+          font-size: 1.5rem;
+          text-align: center;
+          background: var(--gradient-primary);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 2rem;
+      }
+
+      .sidebar a {
+          display: block;
+          padding: 0.75rem 1rem;
+          margin-bottom: 0.5rem;
+          color: var(--text-secondary);
+          text-decoration: none;
+          border-radius: 6px;
+          transition: background 0.2s, color 0.2s;
+          font-size: 0.95rem;
+      }
+
+      .sidebar a:hover,
+      .sidebar a.active {
+          background: var(--bg-hover);
+          color: var(--accent-primary);
+      }
+      
+      .sidebar-section {
+          font-size: 0.8rem;
+          color: var(--accent-primary);
+          text-transform: uppercase;
+          margin-top: 1.5rem;
+          margin-bottom: 0.5rem;
+          padding-left: 1rem;
+      }
+
+      /* Main content */
+      .content {
+          margin-left: 260px;
+          padding: 2rem 3rem;
+          flex: 1;
+      }
+
+      h1 {
+          text-align: center;
+          background: var(--gradient-primary);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 3rem;
+          font-size: 2.5rem;
+      }
+
+      .card {
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-color);
+          border-radius: 12px;
+          padding: 2rem;
+          margin: 2rem auto;
+          max-width: 950px;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      }
+
+      .card h3 {
+          margin-top: 0;
+          margin-bottom: 1.5rem;
+          color: var(--accent-primary);
+          border-left: 3px solid var(--accent-primary);
+          padding-left: 1rem;
+          font-size: 1.5rem;
+      }
+
+      .card p {
+          color: var(--text-secondary);
+          margin-bottom: 1rem;
+      }
+
+      /* Styles for images and placeholders */
+      .card img, .card video {
+          max-width: 100%;
+          border-radius: 8px;
+          margin-top: 1rem;
+          border: 1px solid var(--border-color);
+          display: block;
+      }
+      
+      .image-gallery {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+          margin-top: 1rem;
+      }
+
+      .image-gallery img {
+          margin-top: 0;
+      }
+
+      .placeholder {
+          background: var(--bg-tertiary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 200px;
+          color: var(--text-secondary);
+          font-style: italic;
+          max-width: 100%;
+          border-radius: 8px;
+          margin-top: 1rem;
+          border: 1px solid var(--border-color);
+          padding: 1rem;
+          text-align: center;
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      ul li {
+        position: relative;
+        padding-left: 1.5em;
+        margin-bottom: 0.75rem;
+        color: var(--text-secondary);
+      }
+
+      ul li::before {
+        content: '➤';
+        position: absolute;
+        left: 0;
+        color: var(--accent-primary);
+      }
+
+      code {
+        background-color: var(--code-bg);
+        color: var(--accent-success);
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .footer {
+          text-align: center;
+          margin-top: 3rem;
+          color: var(--text-secondary);
+          font-size: 0.875rem;
+      }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>BM Macro Manual</h2>
+    <div class="sidebar-section">Introduction</div>
+    <a href="#introduction" class="active">1. Overview</a>
+    <a href="#panel">2. Control Panel</a>
+    
+    <div class="sidebar-section">General Settings</div>
+    <a href="#hotkeys">3. System Hotkeys</a>
+    <a href="#presets">4. Presets and Builds</a>
+
+    <div class="sidebar-section">Puncture Mode</div>
+    <a href="#puncture_config">5. Puncture Settings</a>
+    <a href="#puncture_timings">6. Timings and Loops</a>
+    <a href="#puncture_detection">7. Crit Detection</a>
+    <a href="#puncture_setup">8. Setting Patterns</a>
+
+    <div class="sidebar-section">Hybrid Mode</div>
+    <a href="#hybrid_config">9. Hybrid Settings</a>
+    <a href="#hybrid_setup">10. Setting Patterns</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <h1>⚔️ BM Macro - Complete User Manual</h1>
+
+    <div id="introduction" class="card">
+      <h3>1. Overview</h3>
+      <p>Welcome to the manual for BM Macro. This tool is designed to enhance your gaming experience in Blade & Soul by automating complex skill sequences for the Blade Master class. The script operates in two main modes: <b>Puncture</b> and <b>Hybrid</b>, each with detailed settings to perfectly adapt to your ping and build.</p>
+      <p>This manual will guide you through all the features, from the initial hotkey setup to fine-tuning timings and critical hit detection.</p>
+      <div class="image-gallery"> <img src="https://i.imgur.com/l5fYbbL.png" alt="BM Macro Login Screen"></div>
+    </div>
+
+    <div id="panel" class="card">
+      <h3>2. Main Control Panel</h3>
+      <p>The Control Panel is the hub for all settings. From here, you can access all customization windows.</p>
+      <ul>
+        <li><b>Hotkey Editor:</b> Opens the window to configure all macro hotkeys.</li>
+        <li><b>Macro Config:</b> Quick access to timing settings for Puncture and Hybrid modes.</li>
+        <li><b>Puncture Config:</b> A dedicated window for fine-tuning Puncture mode, including search area and detection methods.</li>
+        <li><b>Hybrid Config:</b> Window for configuring the pixel detection of Hybrid mode.</li>
+        <li><b>Preset Manager:</b> Manage your local (saved on PC) and cloud presets.</li>
+        <li><b>Build Library:</b> Access, download, and rate presets shared by the community.</li>
+        <li><b>Flowchart:</b> View a flowchart of how the macros work with your current settings.</li>
+        <li><b>Change Mode:</b> Toggles between Puncture and Hybrid operation modes.</li>
+      </ul>
+      <div class="image-gallery"> <img src="https://i.imgur.com/hjQyzg7.png" alt="BM Macro Interface"></div>
+    </div>
+    
+    <div id="hotkeys" class="card">
+      <h3>3. System and Macro Hotkeys</h3>
+      <p>The <b>Hotkey Editor</b> window allows you to customize all hotkeys used by the script. It's crucial that these do not conflict with your in-game keybindings.</p>
+      <h4>Configuration Tabs:</h4>
+      <ul>
+        <li><b>Macro Keys:</b> Defines the keys that activate macros 1 and 2, and their operation mode (<code>hold</code> or <code>toggle</code> to press once to turn on/off).
+            <ul>
+                <li><b>Macro 1 Key</b> (Default: XButton1)</li>
+                <li><b>Macro 2 Key</b> (Default: XButton2)</li>
+            </ul>
+        </li>
+        <li><b>Puncture Keys:</b> Defines which keys the script should press for the Puncture mode skills.
+            <ul>
+                <li><b>R Skill Key</b> (Default: r)</li>
+                <li><b>T Skill Key</b> (Default: t)</li>
+                <li><b>Tab Skill Key</b> (Default: Tab)</li>
+            </ul>
+        </li>
+        <li><b>Hybrid Keys:</b> Defines the keys for the Hybrid mode skills.
+            <ul>
+                <li><b>T Skill Key</b> (Default: t)</li>
+                <li><b>R Skill Key</b> (Default: r)</li>
+            </ul>
+        </li>
+        <li><b>System Keys:</b> Keys to control the script itself.
+            <ul>
+                <li><b>Menu Key</b> (Default: Delete): Opens the main panel.</li>
+                <li><b>Suspend Key</b> (Default: F12): Pauses/resumes all macros.</li>
+                <li><b>Mode Toggle</b> (Default: Home): Quickly switches between Puncture and Hybrid modes.</li>
+            </ul>
+        </li>
+      </ul>
+      <div class="image-gallery"> <img src="https://i.imgur.com/us5Ccwg.png" alt="BM Hotkey Interface"></div>
+    </div>
+
+    <div id="presets" class="card">
+      <h3>4. Preset Manager and Build Library</h3>
+      <p>The macro allows you to save, load, and share your complete configurations through a robust preset system.</p>
+      <h4>Preset Manager:</h4>
+      <ul>
+        <li><b>Local Presets:</b> A list of all configurations saved on your computer. You can load, edit, delete, export (<code>.ini</code>), or upload a local preset to the cloud.</li>
+        <li><b>Export to Cloud:</b> Allows you to take your current settings, give them a name and description, and share them with the community (public) or save them for your own use (private).</li>
+        <li><b>My Cloud Presets:</b> A list of presets you have saved to your account. From here, you can download them to your machine, delete them from the cloud, or edit their information.</li>
+      </ul>
+      <h4>Build Library:</h4>
+      <p>A community hub to find the best settings for different ping situations and in-game builds. You can search, filter, view details, and download presets made by other players directly to your local preset list.</p>
+      <div class="image-gallery"> <img src="https://i.imgur.com/YWRs2cp.png" alt="BM Library Interface"> <img src="https://i.imgur.com/pWMYzk5.png" alt="BM Preset Interface"> </div>
+    </div>
+
+    <div id="puncture_config" class="card">
+      <h3>5. Puncture Mode Settings</h3>
+      <p><b>Puncture</b> mode is the main combat mode, focused on detecting "Critical Hits" to maximize damage. Correct configuration is essential for optimal performance.</p>
+      <h4>Main Components:</h4>
+      <ul>
+          <li><b>Timings and Loops:</b> The speed and number of times each skill is used.</li>
+          <li><b>Crit Detection:</b> The macro's "vision," which looks for the critical damage text on the screen.</li>
+      </ul>
+      <p>The following sections detail each of these components.</p>
+    </div>
+
+    <div id="puncture_timings" class="card">
+      <h3>6. Timings and Loops (Puncture Mode)</h3>
+      <p>Located in the <b>Macro Config</b> window > <b>Puncture Timings</b> tab, these values control the rhythm of the skill rotation. Adjustments should be made based on your ping (latency).</p>
+      <h4>Rotation Flow (Macro 1): R ➔ TAB ➔ (Crit Check) ➔ T</h4>
+      <ul>
+        <li><b>R Skill:</b>
+            <ul>
+                <li><code>R Loop Count</code>: How many times the R key is pressed (e.g., 4).</li>
+                <li><code>Timing</code>: Delay in milliseconds (ms) between each R (e.g., 30ms).</li>
+                <li><code>After Sleep</code>: Delay AFTER the R sequence, before starting the TAB sequence. Crucial for animation rhythm.</li>
+            </ul>
+        </li>
+        <li><b>Tab Skill:</b>
+            <ul>
+                <li><code>Tab Loop Count</code>: How many times the TAB key is pressed.</li>
+                <li><code>Timing</code>: Delay in ms between each TAB.</li>
+                <li><code>After Sleep</code>: <b>(IMPORTANT)</b> Delay AFTER the TAB sequence. This is the waiting time for the critical text to appear on the screen before the macro searches for it.</li>
+            </ul>
+        </li>
+        <li><b>T Skill (after Crit):</b>
+            <ul>
+                <li><code>T Loop Count</code>: How many times the T key is pressed if a crit is detected.</li>
+                <li><code>Timing</code>: Base delay for the T key.</li>
+                <li><code>Between Keys</code>: Delay in ms between each T in the sequence.</li>
+            </ul>
+        </li>
+        <li><b>Crit Detection:</b>
+          <ul>
+            <li><code>Crit Chek Time</code>: How many time in ms to search for patterns.</li>
+            <li><code>After Combo</code>: Delay after the last T input to restart rotation.</li>
+            <li><code>No Crit Sleep</code>: Delay to start rotation if no crit is found.</li>
+          </ul>
+        </li>
+         <li><b>Detection Settings</b>
+          <ul>
+            <li><code>FindText Retires</code>: How many attemps to search the patterns Ccrit and Lcrit.</li>
+            <li><code>Retry Delay</code>: Delay between attemps.</li>
+            <li><code>Fast Mode Threshold</code>: Failures attemps before active fast mode.</li>
+            <li><code>Fast Mode Timeout</code>: Max search time in fast mode (ms).</li>
+          </ul>
+      </ul>
+      <h4>Rotation Flow (Macro 2): R ➔ TAB ➔ R</h4>
+      <ul>
+      <li><b>Macro 2 Alternating Keys:</b>
+          <ul>
+            <li><code>R Sleep</code>: Timing in ms after R input.</li>
+            <li><code>Between</code>: Delay between Tab and T inputs.</li>
+            <li><code>Tab Sleep</code>: Timing in ms after Tab input.</li>
+          </ul>
+      <div class="image-gallery"> <img src="https://i.imgur.com/QqO951s.png" alt="BM Puncture Timmings Interface"></div>
+    </div>
+
+    <div id="puncture_detection" class="card">
+      <h3>7. Crit Detection (Puncture Mode)</h3>
+      <p>Accessed via <b>Puncture Config</b>, this is the most complex and important section. It defines HOW and WHERE the macro looks for critical damage.</p>
+      <h4>Tab: Detection Area & Filters</h4>
+      <ul>
+        <li><b>FindText Search Area (<code>puncture_x1</code>, <code>y1</code>, <code>x2</code>, <code>y2</code>):</b> Defines a rectangle on the screen where the script will search. Use the <b>Get</b> button to draw this area precisely over where the critical damage text appears in your game. The smaller the area, the faster the detection.</li>
+        <li><b>Ccrit & Lcrit Pattern:</b> These are the "codes" that FindText uses to recognize the images of the critical damage text. They must be captured using the FindText tool (<b>Open FindText</b> button).</li>
+        <li><b>Filter Settings:</b> Optimizations to speed up the search.
+            <ul>
+                <li><code>Enable Color Pre-Filter</code>: Before searching for the complex pattern, the script first checks if any pixels of the crit color exist in the area. Extremely fast.</li>
+                <li><code>Crit Color</code> and <code>Variation</code>: The color (in hexadecimal) of the critical text and the tolerance for variations in shade.</li>
+                <li><code>Enable Dynamic Threshold</code>: Allows the macro to adjust detection sensitivity automatically.</li>
+                <li><code>Min/Max Confidence</code>: Defines how "certain" the macro needs to be to consider that it has found a crit.</li>
+            </ul>
+        </li>
+      </ul>
+      <h4>Tab: Detection Methods</h4>
+      <p>Defines the search strategy. The order is important, as the macro tries the methods from top to bottom.</p>
+      <ul>
+          <li><b>Direct Hit Search:</b> Searches first at the last position where a crit was found. It's the fastest method.</li>
+          <li><b>Cached Coordinates:</b> Uses a history of positions where crits have been frequently found.</li>
+          <li><b>Expanded Search:</b> If the others fail, it searches the entire area, gradually expanding. It's the failsafe method, but slower.</li>
+      </ul>
+      <div class="image-gallery"> <img src="https://i.imgur.com/8waBjY4.png" alt="BM Puncture Detection Interface"> <img src="https://i.imgur.com/m4M32Y6.png" alt="BM Puncture Patterns Interface"></div>
+    </div>
+    
+<div id="puncture_setup" class="card">
+      <h3>8. Pattern Configuration (Puncture Mode)</h3>
+      <h4>Setting up Combat Log</h4>
+      <ul>In game click in <code>+</code>(Add chat tab) in the chat, Chat Settings window will pop up. Add a name for that new chat.
+         Disable all Message Type, enables only <code>My Attack</code> and <code>My Critical Hit Attack</code> and make it <b>Black</b> and <b>Reddish</b> respectively and make it 6 rows (You can Try different Rows and Font Sizes if search isn't reliable)</ul>
+               <div class="image-gallery"> <iframe src="https://drive.google.com/file/d/112a15SLrMz2Zrvivob6Vl6Jh3UskiH_k/preview" width="640" height="480" allow="autoplay"></iframe></div>
+      <h4>Setting up Patterns</h4>
+      <ul><b>Detection Area Filters</b> Click the <b>Open FindText</b> button in the <b>Puncture Config</b> window. This opens the FindText utility, which allows you to capture the patterns of the critical damage text and Area.</ul>
+      <ul>Click in <b>Capture</b> button move the box over <code>L</code>unar and <code>C</code>yclone, right click twice to capture the pattern (You can use Up,Down,Left and Right arrow keys to rezise the box). A new windows will pop, trim the image to only show the letter, click on the red color and adjust the similarity slider to get the best pattern (Dont forget to test it, your main goal is to get a pattern that can be found easily bouth in <code>dark</code> and <code>light</code> areas and with low <code>MS</code>), then click <b>OK</b> button</ul>
+      <ul>It will generate a pattern for that especific letter. Copy all the text inside the <code>""</code>and save in Ccrit Patter and Lcrit Patter respectively</ul>
+      <ul>For Example: <code>Text:="|<>**50$8.ktorM61UBtr3zc"</code> is the C pattern generated, Copy only <code>|<>**50$8.ktorM61UBtr3zc</code> and paste in Ccrit Pattern</ul>
+      <div class="image-gallery"> <iframe src="https://drive.google.com/file/d/1x9ChxItWGAuyvIqncXn6L1x8hCW0qL3H/preview" width="640" height="480" allow="autoplay"></iframe></div>
+      <ul>Repeat the same process for <code>L</code> letter and paste in Lcrit Pattern</ul>
+      <div class="image-gallery"> <iframe src="https://drive.google.com/file/d/1yf6Yb9zevD4rtQZUztuqCZGGXcclKbBd/preview" width="640" height="480" allow="autoplay"></iframe></div>
+      <h4>Setting up Search Area</h4>
+      <ul>You can use <b>GetRange</b> button in FindText tool and manually fill <code>X1,Y1,X2,Y2</code>in the script, or use <b>Get</b> button to automatically fill the inputs. Script it only try to search patterns in that specific designed area, don't forget to set up!</ul>
+      <div class="image-gallery"> <iframe src="https://drive.google.com/file/d/1t8k_6CsvUPk2LmTaPrjXT1umloYdgopQ/preview" width="640" height="480" allow="autoplay"></iframe></div>
+      <h4>Filter Settings</h4>
+      <ul><code>Enable Color Pre-Filter:</code> if enabled, before searching for the complex pattern (Crit and LCrit), the script first checks if any pixels of the crit color exist in the area. You need to change the color to the same Reddish.</ul>
+      <ul><code>Enable Dynamic Threshold:</code> if enabled automatically adjust confidence threshol, adapts to varying text clarity, Helps with inconsistent rendering</ul>
+      <h4>Calibration</h4>
+      <ul>All the coordinates found in that period of time will be saved to be used in future searches.</ul>
+      <div class="image-gallery"> <iframe src="https://drive.google.com/file/d/1Ah9_zEM7BZ1pUEx9SNzaH5Mmt8fWLg8q/preview" width="640" height="480" allow="autoplay"></iframe></div>
+      <h4><b>Active Debug mode in Macro Config for more information on your current set up</b></h4>
+    </div>
+
+    <div id="hybrid_config" class="card">
+      <h3>9. Hybrid Mode Settings</h3>
+      <p><b>Hybrid</b> mode is simpler and doesn't use complex image detection. It relies on fixed key sequences and, optionally, on detecting a single pixel on the screen for "anicancel" (animation canceling).</p>
+      <h4>Macro 1 ("Hybrid Timings" Custom inputs):</h4>
+      <ul>
+        <li><code>Sequence</code>: The sequence of keys to be pressed or only one input, separated by commas (e.g., <code>t</code>), or <code>t,r</code>).</li>
+        <li><code>Timing</code>: Delay in ms between each key in the sequence if theres one.</li>
+        <li><code>Mode</code>: Continous or X ammout repeating.</li>
+        <li><code>Repeat</code>: Ammout of times to repeat.</li>
+        <li><code>Seq</code>: Delay at the end of the sequence before repeating.</li>
+      </ul>
+      <h4>Macro 2 - Anicancel ("Hybrid Timings" Tab and "Hybrid Config" window):</h4>
+      <ul>
+        <li><b>Logic:</b> The macro checks if a pixel of a specific color exists in a small area of the screen (Second blue focus circle).</li>
+        <li><code>On</code>: Sequence to be executed IF the pixel is found (e.g., <code>t,t,r</code>),<code>t,r</code>),<code>r,t</code>).</li>
+        <li><code>No</code>: Sequence to be executed if the pixel is NOT found.(<code>t,</code>(T Spam))</li>
+        <li><code>Timing</code>: Delay in ms between each key</li>
+        <li><code>Pixel</code>: Where in the sequence to check for pixel. (Default is 0, it always check focus before anicancel)</li>
+        <li><code>Retries</code>: Number of attemps to find Pixel color.</li>
+        <li><code>Retries Delay</code>: Delay in each attemp.</li>
+      </ul>
+      <h4>"Hybrid Config" Window:</h4>
+            <ul>
+                <li><b>PixelSearch Area (<code>x1</code>, <code>y1</code>, etc.):</b> The small area where the pixel will be searched for. (Use Get Color buttom and click on the second focus circle)</li>
+                <li><b>Color and Variation:</b> The exact color of the pixel and its tolerance. Use the <b>Get Color</b> button to capture the color directly from the screen.</li>
+            </ul>
+        </li>
+      </ul>
+      <div class="image-gallery"> <img src="https://i.imgur.com/9wi2hrW.png" alt="BM Hybrid Timings Interface"> <img src="https://i.imgur.com/OcYBwZl.png" alt="BM Hybrid PixelSearch Interface"></div>
+    </div>
+
+    <div id="hybrid_setup" class="card">
+      <h3>10. Hybrid Setting Up</h3>
+       <li>In Hybrid Configuration click on <b>Get Color</b> button and move ur mouse over the second focus circle and click it to save the color and coordinates, Done!</li>
+       <div class="image-gallery"><iframe src="https://drive.google.com/file/d/1Q1ZMCkUxM-leoorcMjmXf1x33XBnJG4H/preview" width="640" height="480" allow="autoplay"></iframe></div>
+    </div>
+
+    <div class="footer">
+      <p>© 2025 Skyze BM Script | User Manual</p>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar highlight on scroll
+    const sections = document.querySelectorAll(".card");
+    const navLinks = document.querySelectorAll(".sidebar a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 80;
+        if (scrollY >= sectionTop) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        const linkHref = link.getAttribute("href");
+        if (linkHref && linkHref.substring(1) === current) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+
